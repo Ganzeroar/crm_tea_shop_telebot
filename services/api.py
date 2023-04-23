@@ -11,6 +11,23 @@ async def make_request_products() -> str:
             return response_data
 
 
+async def make_request_for_product_info(product_id) -> str:
+    async with ClientSession() as session:
+        url = f'{config.URL_PATH_TO_CRM}/products/{product_id}'
+        async with session.get(url=url) as response:
+            response_data = await response.json()
+            return response_data
+
+
+async def make_request_for_product_type_info(product_type_id) -> str:
+    async with ClientSession() as session:
+        url = f'{config.URL_PATH_TO_CRM}/product_type/{product_type_id}'
+        async with session.get(url=url) as response:
+            response_data = await response.json()
+            return response_data
+
+
+
 async def make_request_for_chat_id() -> str:
     async with ClientSession() as session:
         url = f'{config.URL_PATH_TO_CRM}/chats?tenantUrl={config.TENANT_URL}'
