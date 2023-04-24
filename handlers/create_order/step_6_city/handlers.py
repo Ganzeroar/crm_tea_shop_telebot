@@ -16,6 +16,9 @@ async def start_city(message):
 
 
 async def city_handler(call, state):
-    await state.update_data(city=call.message.text)
+    button_data = call.data
+    city_id = button_data.split('_')[0]
+
+    await state.update_data(city=city_id)
 
     await step_7_handlers.start_phone(call)

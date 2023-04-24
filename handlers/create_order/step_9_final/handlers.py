@@ -6,14 +6,14 @@ async def start_final(message, state):
     user_name = user_data.get('name')
     user_surname = user_data.get('surname')
     user_phone = user_data.get('phone')
+    user_city = user_data.get('city')
 
-    client_data = await api.make_request_for_create_client(user_name, user_surname, user_phone)
+    client_data = await api.make_request_for_create_client(user_name, user_surname, user_phone, user_city)
     new_client_id = client_data.get('id')
         
     quantity = user_data.get('quantity')
     product_id = await db_functions.get_product_id(message.from_user.id)
-    print('product_id')
-    print(product_id)
+
     response = await api.make_request_for_create_order(quantity, product_id, new_client_id)
     order_id = response.get('id')
     

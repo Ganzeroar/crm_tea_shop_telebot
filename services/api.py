@@ -35,14 +35,14 @@ async def make_request_for_cities() -> str:
             return response_data
 
 
-async def make_request_for_create_client(name, surname, phone) -> str:
+async def make_request_for_create_client(name, surname, phone, user_city) -> str:
     async with ClientSession() as session:
         url = f'{config.URL_PATH_TO_CRM}/clients'
         request_data = {
             'name': name,
             'surname': surname,
             'phone': phone,
-            'city': 1,
+            'city': user_city,
         }
         async with session.post(url=url, json=request_data) as response:
             response_data = await response.json()
@@ -56,7 +56,6 @@ async def make_request_for_create_order(quantity, product_id, client_id) -> str:
             'quantity': quantity,
             'product': product_id,
             'client': client_id,
-            'status': 1,
         }
         async with session.post(url=url, json=request_data) as response:
             response_data = await response.json()
