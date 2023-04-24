@@ -9,8 +9,8 @@ async def get_main_keyboard():
         inline_keyboard=[
             [
                 InlineKeyboardButton(
-                    text=text_keyboard.products,
-                    callback_data='products',
+                    text=text_keyboard.create_order,
+                    callback_data='create_order',
                 ),
             ],
             [

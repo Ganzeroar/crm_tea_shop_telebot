@@ -9,5 +9,5 @@ def create_routes():
         commands=['start'],
     )
     
-    from handlers.products import routes as products_routes
+    from handlers.create_order import routes as products_routes
     products_routes.create_routes()

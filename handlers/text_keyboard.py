@@ -1,4 +1,4 @@
-products = 'Оформить заказ'
+create_order = 'Оформить заказ'
 check_order_status = 'Посмотреть статус заказа'
 contact_the_operator = 'Связаться  с  оператором'
 sweepstakes_and_promotions = 'Розыгрыши и акции'

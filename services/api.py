@@ -27,13 +27,37 @@ async def make_request_for_product_type_info(product_type_id) -> str:
             return response_data
 
 
-
-async def make_request_for_chat_id() -> str:
+async def make_request_for_cities() -> str:
     async with ClientSession() as session:
-        url = f'{config.URL_PATH_TO_CRM}/chats?tenantUrl={config.TENANT_URL}'
-        initial_data = {
-            'phone_number': '',
-        }
-        async with session.post(url=url, json=initial_data) as response:
+        url = f'{config.URL_PATH_TO_CRM}/cities'
+        async with session.get(url=url) as response:
             response_data = await response.json()
-            return response_data.get('chat_id')
+            return response_data
+
+
+async def make_request_for_create_client(name, surname, phone) -> str:
+    async with ClientSession() as session:
+        url = f'{config.URL_PATH_TO_CRM}/clients'
+        request_data = {
+            'name': name,
+            'surname': surname,
+            'phone': phone,
+            'city': 1,
+        }
+        async with session.post(url=url, json=request_data) as response:
+            response_data = await response.json()
+            return response_data
+
+
+async def make_request_for_create_order(quantity, product_id, client_id) -> str:
+    async with ClientSession() as session:
+        url = f'{config.URL_PATH_TO_CRM}/orders'
+        request_data = {
+            'quantity': quantity,
+            'product': product_id,
+            'client': client_id,
+            'status': 1,
+        }
+        async with session.post(url=url, json=request_data) as response:
+            response_data = await response.json()
+            return response_data
