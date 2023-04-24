@@ -46,3 +46,24 @@ async def get_main_keyboard():
         ],
     )
 
+
+async def get_return_to_main_menu_keyboard_button():
+    return [
+        InlineKeyboardButton(
+            text=text_keyboard.return_to_main_menu,
+            callback_data='main_menu',
+        ),
+    ]
+
+
+async def get_return_to_main_menu_keyboard():
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [
+                InlineKeyboardButton(
+                    text=text_keyboard.return_to_main_menu,
+                    callback_data='main_menu',
+                ),
+            ],
+        ],
+    )
