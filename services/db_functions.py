@@ -62,6 +62,18 @@ async def get_product_id(telegram_user_id):
     user_data = cursor.fetchone()
     return user_data[0]
 
+
+async def delete_order_info(message: Message):
+    user_id = message.from_user.id
+
+    conn = await get_connection_to_db()
+    cursor = conn.cursor()
+    cursor.execute(
+        'DELETE FROM order_info WHERE telegram_user_id = (%s);',
+        [user_id],
+    )
+    conn.commit()
+
 # CHAT INFORMATION
 
 async def create_chat_information_table():

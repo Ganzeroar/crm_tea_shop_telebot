@@ -1,5 +1,5 @@
 from services import api, db_functions
-
+from handlers import handlers
 
 async def start_final(message, state):
     user_data = await state.get_data()
@@ -15,6 +15,7 @@ async def start_final(message, state):
     product_id = await db_functions.get_product_id(message.from_user.id)
 
     response = await api.make_request_for_create_order(quantity, product_id, new_client_id)
+    
     order_id = response.get('id')
     
     answer_text = f'Номер вашего заказа - {order_id}'
@@ -22,3 +23,8 @@ async def start_final(message, state):
     
     answer_text = 'Спасибо за обращение! Ваш заказ уже в работе. Мы вам сообщим, когда заказ перейдёт курьеру.'
     await message.answer(answer_text)
+
+    await db_functions.delete_order_info(message)
+    await state.finish()
+
+    await handlers.start_main_menu(message)
