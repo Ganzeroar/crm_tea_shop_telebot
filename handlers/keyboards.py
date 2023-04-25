@@ -19,18 +19,12 @@ async def get_main_keyboard():
                     callback_data='check_order_status',
                 ),
             ],
-            [
-                InlineKeyboardButton(
-                    text=text_keyboard.contact_the_operator,
-                    callback_data='contact_the_operator',
-                ),
-            ],
-            [
-                InlineKeyboardButton(
-                    text=text_keyboard.sweepstakes_and_promotions,
-                    callback_data='sweepstakes_and_promotions',
-                ),
-            ],
+            # [
+            #     InlineKeyboardButton(
+            #         text=text_keyboard.contact_the_operator,
+            #         callback_data='contact_the_operator',
+            #     ),
+            # ],
             [
                 InlineKeyboardButton(
                     text=text_keyboard.information,

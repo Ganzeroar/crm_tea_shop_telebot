@@ -64,12 +64,13 @@ async def make_request_for_create_products(quantity, product_id) -> str:
 
 
 
-async def make_request_for_create_order(quantity, product_id, client_id) -> str:
+async def make_request_for_create_order(product_id, client_id, destination_address) -> str:
     async with ClientSession() as session:
         url = f'{config.URL_PATH_TO_CRM}/orders'
         request_data = {
             'product': product_id,
             'client': client_id,
+            'destination_address': destination_address,
         }
         async with session.post(url=url, json=request_data) as response:
             response_data = await response.json()
