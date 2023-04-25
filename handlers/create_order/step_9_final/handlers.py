@@ -14,7 +14,11 @@ async def start_final(message, state):
     quantity = user_data.get('quantity')
     product_id = await db_functions.get_product_id(message.from_user.id)
 
-    response = await api.make_request_for_create_order(quantity, product_id, new_client_id)
+    products_id_from_crm = await api.make_request_for_create_products(quantity, product_id)
+
+    products_id_from_crm = [products_id_from_crm.get('id')]
+
+    response = await api.make_request_for_create_order(quantity, products_id_from_crm, new_client_id)
     
     order_id = response.get('id')
     
