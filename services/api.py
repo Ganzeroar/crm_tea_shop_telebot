@@ -58,8 +58,6 @@ async def make_request_for_create_products(quantity, product_id) -> str:
         }
         async with session.post(url=url, json=request_data) as response:
             response_data = await response.json()
-            print('make_request_for_create_products')
-            print(response_data)
             return response_data
 
 
@@ -73,7 +71,6 @@ async def make_request_for_create_order(quantity, product_id, client_id) -> str:
         }
         async with session.post(url=url, json=request_data) as response:
             response_data = await response.json()
-            print(response_data)
             return response_data
 
 
