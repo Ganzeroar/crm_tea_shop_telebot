@@ -27,3 +27,6 @@ def create_routes():
 
     from handlers.contacts import routes
     routes.create_routes()
+
+    from handlers.check_order_status import routes
+    routes.create_routes()
