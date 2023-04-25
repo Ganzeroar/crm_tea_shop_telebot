@@ -1,6 +1,6 @@
 import os
 
-from aiogram.types import CallbackQuery, Message
+from aiogram.types import CallbackQuery
 
 from handlers.check_order_status import keyboards, text_answer
 

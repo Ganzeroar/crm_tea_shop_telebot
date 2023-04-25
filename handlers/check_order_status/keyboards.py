@@ -10,12 +10,6 @@ async def get_check_order_status_keyboard():
         inline_keyboard=[
             [
                 InlineKeyboardButton(
-                    text=text_keyboard.find_order_with_phone,
-                    callback_data='find_order_with_phone',
-                ),
-            ],
-            [
-                InlineKeyboardButton(
                     text=text_keyboard.find_order_with_order_number,
                     callback_data='find_order_with_order_number',
                 ),
