@@ -73,6 +73,13 @@ async def make_request_for_create_order(quantity, product_id, client_id) -> str:
         }
         async with session.post(url=url, json=request_data) as response:
             response_data = await response.json()
-            print('make_request_for_create_order')
             print(response_data)
+            return response_data
+
+
+async def make_request_for_check_order_status(order_id) -> str:
+    async with ClientSession() as session:
+        url = f'{config.URL_PATH_TO_CRM}/orders/{order_id}'
+        async with session.get(url=url) as response:
+            response_data = await response.json()
             return response_data
