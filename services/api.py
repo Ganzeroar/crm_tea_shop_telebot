@@ -83,3 +83,11 @@ async def make_request_for_check_order_status(order_id) -> str:
         async with session.get(url=url) as response:
             response_data = await response.json()
             return response_data
+
+
+async def make_request_for_name_order_status(status_id) -> str:
+    async with ClientSession() as session:
+        url = f'{config.URL_PATH_TO_CRM}/order_statuses/{status_id}'
+        async with session.get(url=url) as response:
+            response_data = await response.json()
+            return response_data

@@ -8,9 +8,14 @@ def create_routes():
         text =['find_order_with_order_number', 'find_another_order_with_order_number'],
     )
 
-    from handlers.check_order_status.find_order_with_order_number import handlers
     dp.register_message_handler(
         handlers.find_order_handler,
         content_types=['text'],
+        state=CheckOrderWithNumberState.waiting_for_order_number,
+    )
+
+    dp.register_callback_query_handler(
+        handlers.return_to_main_menu_handler,
+        text=['main_menu'],
         state=CheckOrderWithNumberState.waiting_for_order_number,
     )
