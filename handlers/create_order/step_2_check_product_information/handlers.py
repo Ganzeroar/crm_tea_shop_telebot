@@ -12,7 +12,11 @@ async def start_check_product_informaton(call: CallbackQuery, product_info):
     product_name = product_info.get('name')
     product_description = product_info.get('description')
     product_price = product_info.get('price')
-    product_unit = product_info.get('unit')
+
+    product_unit_id = product_info.get('unit')
+    product_unit_info = await api.make_request_for_product_unit_info(product_unit_id)
+    product_unit = product_unit_info.get('unit')
+
     product_quantity = product_info.get('quantity')
 
     product_type_id = product_info.get('product_type')
