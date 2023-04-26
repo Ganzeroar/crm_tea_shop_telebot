@@ -8,3 +8,9 @@ def create_routes():
         text=['make_order'],
         state=MakeOrderState.check_product_information,
     )
+
+    dp.register_callback_query_handler(
+        handlers.return_to_main_menu_handler,
+        text=['main_menu'],
+        state=MakeOrderState.check_product_information,
+    )

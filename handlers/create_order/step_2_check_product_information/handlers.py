@@ -1,8 +1,10 @@
 from aiogram.types import CallbackQuery
+from aiogram.dispatcher import FSMContext
 
 from handlers.create_order.states import MakeOrderState
 from handlers.create_order.step_2_check_product_information import keyboards
 from handlers.create_order.step_3_select_quantity import handlers as step_3_handles
+from handlers.handlers import start_main_menu_from_callback
 from services import api
 
 
@@ -29,3 +31,9 @@ async def start_check_product_informaton(call: CallbackQuery, product_info):
     
 async def check_product_information_handler(call:CallbackQuery):
     await step_3_handles.start_select_quantity(call)
+
+
+async def return_to_main_menu_handler(call: CallbackQuery, state: FSMContext):
+    await state.finish()
+
+    await start_main_menu_from_callback(call)

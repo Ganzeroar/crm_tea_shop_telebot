@@ -38,5 +38,5 @@ async def find_order_handler(message: Message, state: FSMContext):
 
 async def return_to_main_menu_handler(call: CallbackQuery, state: FSMContext):
     await state.finish()
-    
+
     await start_main_menu_from_callback(call)
