@@ -22,8 +22,8 @@ async def create_order_info_data(telegram_user_id, product_id, product_quantity)
     conn = await get_connection_to_db()
     cursor = conn.cursor()
     cursor.execute(
-        'INSERT INTO order_info (telegram_user_id, product_id, product_quantity) VALUES (%s, %s, %s);',
-        [telegram_user_id, product_id, product_quantity],
+        'INSERT INTO order_info (telegram_user_id, product_id, product_quantity) VALUES (?, ?, ?);',
+        (telegram_user_id, product_id, product_quantity),
     )
     conn.commit()
 
@@ -32,7 +32,7 @@ async def get_product_quantity(telegram_user_id):
     conn = await get_connection_to_db()
     cursor = conn.cursor()
     cursor.execute(
-        'SELECT product_quantity FROM order_info WHERE telegram_user_id = (%s);',
+        'SELECT product_quantity FROM order_info WHERE telegram_user_id = (?);',
         [telegram_user_id],
     )
     user_data = cursor.fetchone()
@@ -43,7 +43,7 @@ async def get_product_id(telegram_user_id):
     conn = await get_connection_to_db()
     cursor = conn.cursor()
     cursor.execute(
-        'SELECT product_id FROM order_info WHERE telegram_user_id = (%s);',
+        'SELECT product_id FROM order_info WHERE telegram_user_id = (?);',
         [telegram_user_id],
     )
     user_data = cursor.fetchone()
@@ -56,7 +56,7 @@ async def delete_order_info(message: Message):
     conn = await get_connection_to_db()
     cursor = conn.cursor()
     cursor.execute(
-        'DELETE FROM order_info WHERE telegram_user_id = (%s);',
+        'DELETE FROM order_info WHERE telegram_user_id = (?);',
         [user_id],
     )
     conn.commit()
@@ -76,7 +76,7 @@ async def update_chat_session_state(chat_id, chat_session_state):
     conn = await get_connection_to_db()
     cursor = conn.cursor()
     cursor.execute(
-        'UPDATE chat_information SET chat_session_state = (%s) WHERE chat_id = (%s);',
+        'UPDATE chat_information SET chat_session_state = (?) WHERE chat_id = (?);',
         [chat_session_state, chat_id],
     )
     conn.commit()
@@ -86,7 +86,7 @@ async def get_chat_session_state(chat_id):
     conn = await get_connection_to_db()
     cursor = conn.cursor()
     cursor.execute(
-        'SELECT chat_session_state FROM chat_information WHERE chat_id = (%s);',
+        'SELECT chat_session_state FROM chat_information WHERE chat_id = (?);',
         [chat_id],
     )
     user_data = cursor.fetchone()
@@ -99,7 +99,7 @@ async def delete_users_chat_id_from_chat_information(message: Message):
     conn = await get_connection_to_db()
     cursor = conn.cursor()
     cursor.execute(
-        'DELETE FROM chat_information WHERE telegram_user_id = (%s);',
+        'DELETE FROM chat_information WHERE telegram_user_id = (?);',
         [user_id],
     )
     conn.commit()
@@ -118,7 +118,7 @@ async def create_chat_information_data(chat_id, telegram_user_id, session_state)
     conn = await get_connection_to_db()
     cursor = conn.cursor()
     cursor.execute(
-        'INSERT INTO chat_information (chat_id, telegram_user_id, chat_session_state) VALUES (%s, %s, %s);',
+        'INSERT INTO chat_information (chat_id, telegram_user_id, chat_session_state) VALUES (?, ?, ?);',
         [chat_id, telegram_user_id, session_state],
     )
     conn.commit()
@@ -130,7 +130,7 @@ async def get_user_chat_id_from_chat_information(message: Message) -> str:
     conn = await get_connection_to_db()
     cursor = conn.cursor()
     cursor.execute(
-        'SELECT chat_id FROM chat_information WHERE telegram_user_id = (%s);',
+        'SELECT chat_id FROM chat_information WHERE telegram_user_id = (?);',
         [user_id],
     )
     user_data = cursor.fetchone()
@@ -143,7 +143,7 @@ async def get_telegram_user_id_using_chat_id(chat_id: int) -> str:
     conn = await get_connection_to_db()
     cursor = conn.cursor()
     cursor.execute(
-        'SELECT telegram_user_id FROM chat_information WHERE chat_id = (%s);',
+        'SELECT telegram_user_id FROM chat_information WHERE chat_id = (?);',
         [chat_id],
     )
     user_data = cursor.fetchone()
