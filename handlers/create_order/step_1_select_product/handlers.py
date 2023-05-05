@@ -1,4 +1,4 @@
-from aiogram.types import CallbackQuery
+from aiogram.types import CallbackQuery, Message
 
 from handlers.create_order.states import MakeOrderState
 from handlers.create_order.step_1_select_product import keyboards, text_answer
@@ -28,3 +28,9 @@ async def select_product_handler(call: CallbackQuery):
     await db_functions.create_order_info_data(call.from_user.id, product_id, product_quantity)
     
     await step_2_handlers.start_check_product_informaton(call, product_info)
+
+
+async def start_ask_user_to_use_buttons(message: Message):
+    answer_text = text_answer.ask_user_to_use_buttons
+
+    await message.answer(answer_text)

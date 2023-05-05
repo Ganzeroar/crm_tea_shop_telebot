@@ -1,5 +1,5 @@
 from loader import dp
-from handlers.create_order import states
+from handlers.create_order.states import MakeOrderState
 
 
 def create_routes():
@@ -7,5 +7,5 @@ def create_routes():
     dp.register_message_handler(
         handlers.select_quantity_handler,
         content_types=['text'],
-        state=states.MakeOrderState.quantity,
+        state=MakeOrderState.quantity,
     )
