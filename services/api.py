@@ -93,5 +93,9 @@ async def make_request_for_name_order_status(status_id) -> str:
     async with ClientSession() as session:
         url = f'{config.URL_PATH_TO_CRM}/order_statuses/{status_id}'
         async with session.get(url=url) as response:
+            if response.status == 404:
+                response_data = []
+                return response_data
+
             response_data = await response.json()
             return response_data

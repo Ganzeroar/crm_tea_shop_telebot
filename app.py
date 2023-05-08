@@ -15,7 +15,6 @@ from loader import dp
 async def set_default_commands(dp):
     await dp.bot.set_my_commands([
         types.BotCommand('start', 'Start bot'),
-        types.BotCommand('help', 'Start bot'),
     ])
 
 

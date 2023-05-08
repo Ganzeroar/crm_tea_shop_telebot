@@ -1,5 +1,6 @@
 from services import api, db_functions
 from handlers import handlers
+from handlers.create_order.step_9_final import text_answer
 
 async def start_final(message, state):
     user_data = await state.get_data()
@@ -26,7 +27,7 @@ async def start_final(message, state):
     answer_text = f'Номер вашего заказа - {order_id}'
     await message.answer(answer_text)
     
-    answer_text = 'Спасибо за обращение! Ваш заказ уже в работе. Мы вам сообщим, когда заказ перейдёт курьеру.'
+    answer_text = text_answer.final_form_text
     await message.answer(answer_text)
 
     await db_functions.delete_order_info(message)
