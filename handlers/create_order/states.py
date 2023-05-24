@@ -2,6 +2,7 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 
 
 class MakeOrderState(StatesGroup):
+    select_product_type = State()
     select_product = State()
     check_product_information = State()
     quantity = State()

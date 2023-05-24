@@ -3,9 +3,17 @@ from aiohttp import ClientSession
 from configurations import config
 
 
-async def make_request_products() -> str:
+async def make_request_for_product_types() -> str:
     async with ClientSession() as session:
-        url = f'{config.URL_PATH_TO_CRM}/products'
+        url = f'{config.URL_PATH_TO_CRM}/product_types'
+        async with session.get(url=url) as response:
+            response_data = await response.json()
+            return response_data
+
+
+async def make_request_for_products_of_type(product_type_id) -> str:
+    async with ClientSession() as session:
+        url = f'{config.URL_PATH_TO_CRM}/products_of_type/{product_type_id}'
         async with session.get(url=url) as response:
             response_data = await response.json()
             return response_data
@@ -17,6 +25,7 @@ async def make_request_for_product_info(product_id) -> str:
         async with session.get(url=url) as response:
             response_data = await response.json()
             return response_data
+
 
 async def make_request_for_product_unit_info(product_unit_id) -> str:
     async with ClientSession() as session:
