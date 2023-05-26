@@ -15,7 +15,7 @@ async def start_select_type(call: CallbackQuery):
 
     answer_text = text_answer.product_types
     answer_keyboard = await keyboards.create_product_types_keyboard(user_id, existing_types)
-    await call.message.answer(answer_text, reply_markup=answer_keyboard)
+    await call.message.answer(answer_text, reply_markup=answer_keyboard, )
 
 
 async def select_product_type_handler(call: CallbackQuery):

@@ -7,6 +7,12 @@ def create_routes():
         handlers.create_order,
         text=['create_order'],
     )
+
+    dp.register_message_handler(
+        handlers.return_to_main_menu,
+        text=['Вернуться в главное меню'],
+        state='*',
+    )
     
     from handlers.create_order.step_2_check_product_information import routes as step_2_routes
     step_2_routes.create_routes()
@@ -25,3 +31,4 @@ def create_routes():
 
     from handlers.create_order.step_8_destination_address import routes as step_8_routes
     step_8_routes.create_routes()
+
