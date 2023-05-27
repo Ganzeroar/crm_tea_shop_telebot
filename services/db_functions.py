@@ -28,6 +28,28 @@ async def create_order_info_data(telegram_user_id, product_id, product_quantity)
     conn.commit()
 
 
+async def set_quantity(telegram_user_id, product_id, product_quantity):
+    conn = await get_connection_to_db()
+    cursor = conn.cursor()
+    cursor.execute(
+        'UPDATE order_info SET product_quantity = (?) WHERE telegram_user_id = (?) AND product_id = (?);',
+        (product_quantity, telegram_user_id, product_id),
+    )
+    conn.commit()
+
+
+async def get_product_info(telegram_user_id):
+    conn = await get_connection_to_db()
+    cursor = conn.cursor()
+    cursor.execute(
+        'SELECT product_quantity, product_id FROM order_info WHERE telegram_user_id = (?);',
+        [telegram_user_id],
+    )
+    user_data = cursor.fetchall()
+    print(user_data)
+    return user_data
+
+
 async def get_product_quantity(telegram_user_id):
     conn = await get_connection_to_db()
     cursor = conn.cursor()

@@ -50,6 +50,13 @@ async def make_request_for_cities() -> str:
             return response_data
 
 
+async def make_request_for_is_phone_valid(phone):
+    async with ClientSession() as session:
+        url = f'{config.URL_PATH_TO_CRM}/phone/{phone}'
+        async with session.get(url=url) as response:
+            return response.status
+
+
 async def make_request_for_create_client(name, surname, phone, user_city) -> str:
     async with ClientSession() as session:
         url = f'{config.URL_PATH_TO_CRM}/clients'
@@ -62,6 +69,7 @@ async def make_request_for_create_client(name, surname, phone, user_city) -> str
         async with session.post(url=url, json=request_data) as response:
             response_data = await response.json()
             return response_data
+            #TODO написать эндпоинт на валидацию номера телефона
 
 
 async def make_request_for_create_products(quantity, product_id) -> str:
@@ -77,16 +85,17 @@ async def make_request_for_create_products(quantity, product_id) -> str:
 
 
 
-async def make_request_for_create_order(product_id, client_id, destination_address) -> str:
+async def make_request_for_create_order(product_info_arr, client_id, destination_address) -> str:
     async with ClientSession() as session:
         url = f'{config.URL_PATH_TO_CRM}/orders'
         request_data = {
-            'product': product_id,
+            'product': product_info_arr,
             'client': client_id,
             'destination_address': destination_address,
         }
         async with session.post(url=url, json=request_data) as response:
             response_data = await response.json()
+            print(response_data)
             return response_data
 
 

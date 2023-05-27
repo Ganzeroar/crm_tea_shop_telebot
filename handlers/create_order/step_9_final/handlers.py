@@ -13,14 +13,20 @@ async def start_final(message, state):
     new_client_id = client_data.get('id')
         
     quantity = user_data.get('quantity')
-    product_id = await db_functions.get_product_id(message.from_user.id)
-
-    products_id_from_crm = await api.make_request_for_create_products(quantity, product_id)
-
-    products_id_from_crm = [products_id_from_crm.get('id')]
-    
+    product_info = await db_functions.get_product_info(message.from_user.id)
+    product_info_arr = []
+    for product_and_quantity in product_info:
+        proudct_id = product_and_quantity[1]
+        proudct_quantity = product_and_quantity[0]
+        product_info_arr.append(
+            {
+                'product': proudct_id,
+                'quantity': proudct_quantity,
+            },
+        )
+    print(product_info)
     destination_address = user_data.get('destination_address')
-    response = await api.make_request_for_create_order(products_id_from_crm, new_client_id, destination_address)
+    response = await api.make_request_for_create_order(product_info_arr, new_client_id, destination_address)
     
     order_id = response.get('id')
     

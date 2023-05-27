@@ -6,6 +6,7 @@ class MakeOrderState(StatesGroup):
     select_product = State()
     check_product_information = State()
     quantity = State()
+    another_product_or_go_next = State()
     name = State()
     surname = State()
     city = State()

@@ -29,7 +29,7 @@ async def start_check_product_informaton(call: CallbackQuery, product_info):
     answer_keyboard = await keyboards.get_product_answer_keyboard()
     await call.message.answer(answer_message, reply_markup=answer_keyboard)
     
-async def check_product_information_handler(call:CallbackQuery):
+async def check_product_information_handler(call: CallbackQuery):
     await step_3_handles.start_select_quantity(call)
 
 

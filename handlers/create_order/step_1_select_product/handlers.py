@@ -18,9 +18,11 @@ async def start_select_product(call: CallbackQuery, product_type_id: str):
     await call.message.answer(answer_text, reply_markup=answer_keyboard)
 
 
-async def select_product_handler(call: CallbackQuery):
+async def select_product_handler(call: CallbackQuery, state):
     button_data = call.data
     product_id = button_data.split('_')[0]
+
+    await state.update_data(current_product=product_id)
 
     product_info = await api.make_request_for_product_info(product_id)
     product_quantity = product_info.get('quantity')

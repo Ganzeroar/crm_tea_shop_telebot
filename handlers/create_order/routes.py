@@ -20,6 +20,9 @@ def create_routes():
     from handlers.create_order.step_3_select_quantity import routes as step_3_routes
     step_3_routes.create_routes()
 
+    from handlers.create_order.step_4_another_product_or_go_next import routes as step_4_routes_1
+    step_4_routes_1.create_routes()
+
     from handlers.create_order.step_4_name import routes as step_4_routes
     step_4_routes.create_routes()
 
