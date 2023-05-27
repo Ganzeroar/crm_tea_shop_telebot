@@ -8,8 +8,9 @@ async def start_final(message, state):
     user_surname = user_data.get('surname')
     user_phone = user_data.get('phone')
     user_city = user_data.get('city')
+    telegram_user_id = message.from_user.id
 
-    client_data = await api.make_request_for_create_client(user_name, user_surname, user_phone, user_city)
+    client_data = await api.make_request_for_create_client(user_name, user_surname, user_phone, user_city, telegram_user_id)
     new_client_id = client_data.get('id')
         
     quantity = user_data.get('quantity')

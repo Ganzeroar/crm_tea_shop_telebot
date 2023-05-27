@@ -50,12 +50,12 @@ async def get_product_info(telegram_user_id):
     return user_data
 
 
-async def get_product_quantity(telegram_user_id):
+async def get_product_quantity(telegram_user_id, current_product_id):
     conn = await get_connection_to_db()
     cursor = conn.cursor()
     cursor.execute(
-        'SELECT product_quantity FROM order_info WHERE telegram_user_id = (?);',
-        [telegram_user_id],
+        'SELECT product_quantity FROM order_info WHERE telegram_user_id = (?) and product_id = (?);',
+        [telegram_user_id, current_product_id],
     )
     user_data = cursor.fetchone()
     return user_data[0]

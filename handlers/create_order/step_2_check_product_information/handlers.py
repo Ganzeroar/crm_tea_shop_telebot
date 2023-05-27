@@ -20,6 +20,8 @@ async def start_check_product_informaton(call: CallbackQuery, product_info, stat
     product_unit = product_unit_info.get('unit')
 
     product_quantity = product_info.get('quantity')
+    if product_quantity == 0:
+        product_quantity = 'Нет в наличии'
 
     product_type_id = product_info.get('product_type')
     product_type_info = await api.make_request_for_product_type_info(product_type_id)
@@ -29,7 +31,7 @@ async def start_check_product_informaton(call: CallbackQuery, product_info, stat
     
     user_data = await state.get_data()
     is_at_least_one_item_selected = user_data.get('is_at_least_one_item_selected')
-    answer_keyboard = await keyboards.get_product_answer_keyboard(is_at_least_one_item_selected)
+    answer_keyboard = await keyboards.get_product_answer_keyboard(is_at_least_one_item_selected, product_quantity)
     await call.message.answer(answer_message, reply_markup=answer_keyboard)
     
 async def check_product_information_handler(call: CallbackQuery):
@@ -39,13 +41,14 @@ async def check_product_information_handler(call: CallbackQuery):
 async def continue_main_order(call: CallbackQuery, state):
     user_data = await state.get_data()
     current_product_id = user_data.get('current_product')
-    print(current_product_id)
-    print(call)
     await db_functions.delete_one_product_from_order(call.message, current_product_id)
 
     await step_4_name_handlers.start_name(call.message)
 
 async def return_to_select_product_type(call: CallbackQuery, state: FSMContext):
+    user_data = await state.get_data()
+    current_product_id = user_data.get('current_product')
+    await db_functions.delete_one_product_from_order(call.message, current_product_id)
     await step_1_handlers.start_select_type(call)
 
 async def start_ask_user_to_use_buttons(message: Message):

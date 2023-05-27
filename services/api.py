@@ -57,7 +57,7 @@ async def make_request_for_is_phone_valid(phone):
             return response.status
 
 
-async def make_request_for_create_client(name, surname, phone, user_city) -> str:
+async def make_request_for_create_client(name, surname, phone, user_city, telegram_user_id) -> str:
     async with ClientSession() as session:
         url = f'{config.URL_PATH_TO_CRM}/clients'
         request_data = {
@@ -65,6 +65,7 @@ async def make_request_for_create_client(name, surname, phone, user_city) -> str
             'surname': surname,
             'phone': phone,
             'city': user_city,
+            'telegram_user_id': telegram_user_id,
         }
         async with session.post(url=url, json=request_data) as response:
             response_data = await response.json()

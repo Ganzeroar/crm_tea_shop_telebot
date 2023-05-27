@@ -13,7 +13,10 @@ async def start_select_quantity(call: CallbackQuery):
 
 
 async def select_quantity_handler(message, state):
-    product_quantity = await db_functions.get_product_quantity(message.from_user.id)
+    user_data = await state.get_data()
+    current_product_id = user_data.get('current_product')
+
+    product_quantity = await db_functions.get_product_quantity(message.from_user.id, current_product_id)
 
     user_order_quantity = message.text
 
@@ -23,12 +26,14 @@ async def select_quantity_handler(message, state):
         return
 
     elif int(product_quantity) - int(user_order_quantity) < 0:
-        print(1)
         answer_text = text_answer.wrong_count_of_product
         await message.answer(answer_text)
         return
-    user_data = await state.get_data()
-    current_product_id = user_data.get('current_product')
+    elif user_order_quantity == '0':
+        answer_text = text_answer.wrong_count_of_product
+        await message.answer(answer_text)
+        return
+
 
     await db_functions.set_quantity(message.from_user.id, current_product_id ,user_order_quantity)
     await state.update_data(quantity=message.text)
