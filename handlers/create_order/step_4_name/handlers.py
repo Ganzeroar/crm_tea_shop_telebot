@@ -3,7 +3,7 @@ from handlers.create_order.step_5_surname import handlers as step_5_handlers
 from handlers.create_order.step_4_name import text_answer
 
 async def start_name(message):
-    await MakeOrderState.next()
+    await MakeOrderState.name.set()
     answer_text = text_answer.enter_name
     await message.answer(answer_text)
 

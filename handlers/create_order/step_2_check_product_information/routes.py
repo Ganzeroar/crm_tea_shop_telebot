@@ -16,7 +16,13 @@ def create_routes():
     )
 
     dp.register_callback_query_handler(
-        handlers.return_to_main_menu_handler,
-        text=['main_menu'],
+        handlers.return_to_select_product_type,
+        text=['return_to_select_product_type'],
+        state=MakeOrderState.check_product_information,
+    )
+
+    dp.register_callback_query_handler(
+        handlers.continue_main_order,
+        text=['continue_main_order'],
         state=MakeOrderState.check_product_information,
     )

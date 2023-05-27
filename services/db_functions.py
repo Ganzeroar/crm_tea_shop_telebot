@@ -83,6 +83,21 @@ async def delete_order_info(message: Message):
     )
     conn.commit()
 
+
+async def delete_one_product_from_order(message: Message, product_id):
+    user_id = message.chat.id
+    print(message)
+    print(user_id)
+    print(product_id)
+    conn = await get_connection_to_db()
+    cursor = conn.cursor()
+    cursor.execute(
+        'DELETE FROM order_info WHERE telegram_user_id = (?) AND product_id = (?);',
+        [user_id, product_id],
+    )
+    conn.commit()
+
+
 # CHAT INFORMATION
 
 async def create_chat_information_table():

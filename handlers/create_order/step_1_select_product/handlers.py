@@ -29,7 +29,7 @@ async def select_product_handler(call: CallbackQuery, state):
 
     await db_functions.create_order_info_data(call.from_user.id, product_id, product_quantity)
 
-    await step_2_handlers.start_check_product_informaton(call, product_info)
+    await step_2_handlers.start_check_product_informaton(call, product_info, state)
 
 
 async def start_ask_user_to_use_buttons(message: Message):

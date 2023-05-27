@@ -31,8 +31,6 @@ async def select_quantity_handler(message, state):
     current_product_id = user_data.get('current_product')
 
     await db_functions.set_quantity(message.from_user.id, current_product_id ,user_order_quantity)
-    print(user_order_quantity)
-    print(int(user_order_quantity))
     await state.update_data(quantity=message.text)
     
-    await step_4_handlers.start_another_product_or_go_next(message)
+    await step_4_handlers.start_another_product_or_go_next(message, state)

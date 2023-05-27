@@ -6,8 +6,10 @@ from handlers.create_order.step_4_name import handlers as step_4_handlers
 from handlers.create_order.step_4_another_product_or_go_next import text_answer, keyboards
 from handlers.create_order.step_0_select_type import handlers as step_1_handlers
 
-async def start_another_product_or_go_next(message: Message):
+async def start_another_product_or_go_next(message: Message, state):
     await MakeOrderState.next()
+    await state.update_data(is_at_least_one_item_selected=True)
+
     answer_text = text_answer.another_product_or_go_next
     answer_keyboard = await keyboards.get_another_product_or_go_next_keyboard()
     await message.answer(answer_text, reply_markup=answer_keyboard)
