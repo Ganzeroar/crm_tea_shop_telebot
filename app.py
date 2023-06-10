@@ -4,15 +4,12 @@
 import asyncio
 import logging
 import sys
-import time
 from aiohttp import web
 
 from aiogram import executor, types
 
 from configurations.config import DEBUG
 from loader import dp, bot
-
-# from services.db_functions import delete_all_data_in_users_chat_id
 
 
 async def set_default_commands(dp):
@@ -45,18 +42,20 @@ if DEBUG:
     root = logging.getLogger()
     stream_handler = logging.StreamHandler(sys.stdout)
     stream_handler.setLevel(logging.INFO)
-    formatter = logging.Formatter('TIME - %(asctime)s | LEVEL - %(levelname)s | NAME -- %(name)s | MESSAGE - %(message)s')
+    formatter = logging.Formatter(
+        'TIME - %(asctime)s | LEVEL - %(levelname)s | NAME -- %(name)s | MESSAGE - %(message)s',
+    )
     stream_handler.setFormatter(formatter)
     root.addHandler(stream_handler)
+
 
 async def start_polling():
     await set_default_commands(dp)
     await dp.start_polling()
 
 
-# async def 
-
 routes = web.RouteTableDef()
+
 
 @routes.post('/status_was_updated')
 async def hello(request):
@@ -64,7 +63,7 @@ async def hello(request):
     data = await request.json()
     status = data['status']
     telegram_user_id = data['telegram_user_id']
-    await send_message_to_user_about_status_change(telegram_user_id, status) 
+    await send_message_to_user_about_status_change(telegram_user_id, status)
     print(dir(request))
     return web.Response(text="Hello, world")
 
@@ -76,6 +75,7 @@ async def send_message_to_user_about_status_change(user_id, status):
 
 app = web.Application()
 app.add_routes(routes)
+
 
 async def run_aiohttp_server():
     runner = web.AppRunner(app)

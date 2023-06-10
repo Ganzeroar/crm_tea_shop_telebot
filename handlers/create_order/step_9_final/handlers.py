@@ -2,6 +2,7 @@ from services import api, db_functions
 from handlers import handlers
 from handlers.create_order.step_9_final import text_answer
 
+
 async def start_final(message, state):
     user_data = await state.get_data()
     user_name = user_data.get('name')
@@ -12,8 +13,7 @@ async def start_final(message, state):
 
     client_data = await api.make_request_for_create_client(user_name, user_surname, user_phone, user_city, telegram_user_id)
     new_client_id = client_data.get('id')
-        
-    quantity = user_data.get('quantity')
+
     product_info = await db_functions.get_product_info(message.from_user.id)
     product_info_arr = []
     for product_and_quantity in product_info:
