@@ -15,3 +15,17 @@ async def create_route(product_id, user_id):
         text=[f"{product_id}_{user_id}"],
         state=MakeOrderState.select_product
     )
+
+
+def create_routes():
+    dp.register_callback_query_handler(
+        handlers.select_product_next_page,
+        text=["next_page"],
+        state=MakeOrderState.select_product
+    )
+
+    dp.register_callback_query_handler(
+        handlers.select_product_previous_page,
+        text=["previous_page"],
+        state=MakeOrderState.select_product
+    )

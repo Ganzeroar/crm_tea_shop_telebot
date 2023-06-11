@@ -18,11 +18,11 @@ async def start_select_type(call: CallbackQuery):
     await call.message.answer(answer_text, reply_markup=answer_keyboard, )
 
 
-async def select_product_type_handler(call: CallbackQuery):
+async def select_product_type_handler(call: CallbackQuery, state):
     button_data = call.data
     product_id = button_data.split('_')[0]
 
-    await step_1_handlers.start_select_product(call, product_id)
+    await step_1_handlers.start_select_product(call, product_id, state)
 
 
 async def start_ask_user_to_use_buttons(message: Message):

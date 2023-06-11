@@ -1,5 +1,5 @@
 from loader import dp
-from handlers.create_order import states
+
 
 def create_routes():
     from handlers.create_order import handlers
@@ -13,7 +13,10 @@ def create_routes():
         text=['Вернуться в главное меню'],
         state='*',
     )
-    
+
+    from handlers.create_order.step_1_select_product import routes as step_1_routes
+    step_1_routes.create_routes()
+
     from handlers.create_order.step_2_check_product_information import routes as step_2_routes
     step_2_routes.create_routes()
 
@@ -34,4 +37,3 @@ def create_routes():
 
     from handlers.create_order.step_8_destination_address import routes as step_8_routes
     step_8_routes.create_routes()
-

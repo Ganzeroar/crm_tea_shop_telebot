@@ -11,6 +11,13 @@ async def make_request_for_product_types() -> str:
             return response_data
 
 
+async def make_request_for_products_of_type_using_request(next_url) -> str:
+    async with ClientSession() as session:
+        async with session.get(url=next_url) as response:
+            response_data = await response.json()
+            return response_data
+
+
 async def make_request_for_products_of_type(product_type_id) -> str:
     async with ClientSession() as session:
         url = f'{config.URL_PATH_TO_CRM}/products_of_type/{product_type_id}'

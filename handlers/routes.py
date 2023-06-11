@@ -1,5 +1,4 @@
 from loader import dp
-from handlers import text_keyboard
 
 
 def create_routes():
@@ -8,7 +7,7 @@ def create_routes():
         handlers.start_main_menu,
         commands=['start'],
     )
-    
+
     from handlers.create_order import routes as create_order_routes
     create_order_routes.create_routes()
 
