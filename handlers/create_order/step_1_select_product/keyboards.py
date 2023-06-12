@@ -18,7 +18,7 @@ async def create_products_keyboard(user_id, info_about_products):
     if info_about_products.get('next'):
         next_button = [
             InlineKeyboardButton(
-                text='Следующая страница',
+                text='➡️ Следующая страница',
                 callback_data="next_page",
             )
         ]
@@ -26,7 +26,7 @@ async def create_products_keyboard(user_id, info_about_products):
     if info_about_products.get('previous'):
         next_button = [
             InlineKeyboardButton(
-                text='Предыдущая страница',
+                text='⬅️ Предыдущая страница',
                 callback_data="previous_page",
             )
         ]
